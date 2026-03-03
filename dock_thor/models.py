@@ -12,7 +12,7 @@ class AuthData:
     token: str
     private_key: str
     scheme: str = "https"
-    host: str = "pab.creativa.studio"
+    host: str = "thor.dock.codes"
     path: str = "/api/v1"
 
     def base_url(self):
