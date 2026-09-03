@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from typing import Any, Optional
 from urllib.parse import urlsplit
 
-DEFAULT_URL = "https://thor.dock.codes"
+DEFAULT_URL = "https://dockray.io"
 
 API_PATH = "/api/v1"
 

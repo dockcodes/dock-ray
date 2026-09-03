@@ -1,8 +1,8 @@
 [project]
-name = "dock-thor-client"
+name = "dock-ray"
 version = "1.2.0"
 description = "Python client for DockTHOR error and performance monitoring"
-authors = [{ name = "Jacek Labudda", email = "j.labudda@dock.codes" }]
+authors = [{ name = "Jacek Sultan", email = "j.sultan@dock.codes" }]
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.9"
@@ -19,8 +19,8 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://dock.codes"
-Source = "https://github.com/dockcodes/dock-thor"
-Issues = "https://github.com/dockcodes/dock-thor/issues"
+Source = "https://github.com/dockcodes/dock-ray"
+Issues = "https://github.com/dockcodes/dock-ray/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "pytest-asyncio>=0.24", "respx>=0.21"]
@@ -30,4 +30,4 @@ requires = ["setuptools>=80.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["dock_thor"]
+packages = ["dock_ray"]

@@ -8,7 +8,7 @@ import httpx
 from .models import AuthData, Event
 from .serializer import PayloadSerializer
 
-logger = logging.getLogger("dock_thor")
+logger = logging.getLogger("dock_ray")
 
 COMPRESSION_THRESHOLD = 1024
 
@@ -33,7 +33,7 @@ class HttpTransport:
         self.serializer = PayloadSerializer(sdk_version)
         self.client = httpx.AsyncClient(
             timeout=timeout,
-            headers={"User-Agent": f"dock-thor-client/{sdk_version}"},
+            headers={"User-Agent": f"dock-ray/{sdk_version}"},
         )
 
     async def send(self, event: Event, transaction: bool = False) -> bool:

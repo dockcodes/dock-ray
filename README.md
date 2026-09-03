@@ -1,4 +1,4 @@
-# dock-thor-client
+# dock-ray
 
 Python client for [DockTHOR](https://dock.codes). Reports exceptions, messages
 and HTTP transactions from asyncio applications.
@@ -6,7 +6,7 @@ and HTTP transactions from asyncio applications.
 ## Installation
 
 ```bash
-pip install dock-thor-client
+pip install dock-ray
 ```
 
 ## Usage
@@ -14,12 +14,12 @@ pip install dock-thor-client
 Every reporting method is a coroutine, so calls are awaited:
 
 ```python
-from dock_thor import DockThorClient
+from dock_ray import DockRayClient
 
-client = DockThorClient(
+client = DockRayClient(
     token="project-token",
     private_key="project-private-key",
-    url="https://thor.dock.codes",
+    url="https://dockray.io",
     environment="production",
 )
 
@@ -62,13 +62,13 @@ else that speaks the protocol, and it does not buffer streaming responses.
 
 ```python
 from fastapi import FastAPI
-from dock_thor import DockThorClient, DockThorFastAPIMiddleware
+from dock_ray import DockRayClient, DockRayFastAPIMiddleware
 
-client = DockThorClient(token="...", private_key="...")
+client = DockRayClient(token="...", private_key="...")
 app = FastAPI()
 
 app.add_middleware(
-    DockThorFastAPIMiddleware,
+    DockRayFastAPIMiddleware,
     client=client,
     exclude_paths=["/health", "/metrics"],
 )
@@ -93,7 +93,7 @@ Useful for background jobs:
 
 ```python
 import time, uuid
-from dock_thor import Span
+from dock_ray import Span
 
 started = time.time()
 await run_daily_cleanup()
@@ -119,10 +119,10 @@ method and the status the panel indexes the transaction by.
 ## Failure behaviour
 
 Nothing in this client raises into the application it monitors. Network errors,
-rejected events and malformed responses are logged to the `dock_thor` logger
+rejected events and malformed responses are logged to the `dock_ray` logger
 and reported as `False`. A `200` response carrying `{"success": false}` means
 the account reached its monthly error quota.
 
 ## Contributing
 
-Issues and pull requests: <https://github.com/dockcodes/dock-thor/issues>
+Issues and pull requests: <https://github.com/dockcodes/dock-ray/issues>

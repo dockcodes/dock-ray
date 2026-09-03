@@ -9,7 +9,7 @@ from .models import Span
 EXCLUDED_BY_DEFAULT = ("/health", "/metrics")
 
 
-class DockThorFastAPIMiddleware:
+class DockRayFastAPIMiddleware:
     """ASGI middleware: one transaction per request, plus unhandled exceptions.
 
     Written against the raw ASGI interface rather than Starlette's

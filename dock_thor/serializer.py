@@ -6,7 +6,7 @@ from typing import Any
 
 from .models import Event
 
-SDK_NAME = "dock-thor-client"
+SDK_NAME = "dock-ray"
 
 
 class PayloadSerializer:

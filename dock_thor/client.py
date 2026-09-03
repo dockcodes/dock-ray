@@ -7,12 +7,12 @@ from typing import Optional
 from .models import DEFAULT_URL, AuthData, Event, Span
 from .transport import HttpTransport
 
-logger = logging.getLogger("dock_thor")
+logger = logging.getLogger("dock_ray")
 
 SDK_VERSION = "1.2.0"
 
 
-class DockThorClient:
+class DockRayClient:
     """Sends errors, messages and transactions to a DockTHOR project.
 
     Without a token and a private key the client stays inert — every call is a
