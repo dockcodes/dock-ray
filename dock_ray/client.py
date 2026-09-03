@@ -9,7 +9,7 @@ from .transport import HttpTransport
 
 logger = logging.getLogger("dock_ray")
 
-SDK_VERSION = "1.4.0"
+SDK_VERSION = "1.4.1"
 
 
 class DockRayClient:
