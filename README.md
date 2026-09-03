@@ -19,7 +19,6 @@ from dock_ray import DockRayClient
 client = DockRayClient(
     token="project-token",
     private_key="project-private-key",
-    url="https://dockray.io",
     environment="production",
 )
 
