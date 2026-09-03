@@ -1,6 +1,6 @@
 [project]
 name = "dock-ray"
-version = "1.3.0"
+version = "1.4.0"
 description = "Python client for DockTHOR error and performance monitoring"
 authors = [{ name = "Jacek Sultan", email = "j.sultan@dock.codes" }]
 readme = "README.md"
