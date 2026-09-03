@@ -51,12 +51,12 @@ class HttpTransport:
         try:
             response = await self.client.post(url, headers=headers, content=body)
         except httpx.HTTPError as error:
-            logger.warning("DockTHOR could not be reached: %s", error)
+            logger.warning("DockRay could not be reached: %s", error)
             return False
 
         if response.status_code >= 400:
             logger.warning(
-                "DockTHOR rejected the event with HTTP %s", response.status_code
+                "DockRay rejected the event with HTTP %s", response.status_code
             )
             return False
 
@@ -64,7 +64,7 @@ class HttpTransport:
         try:
             return bool(response.json().get("success", False))
         except ValueError:
-            logger.warning("DockTHOR returned a response that is not JSON")
+            logger.warning("DockRay returned a response that is not JSON")
             return False
 
     async def close(self) -> None:

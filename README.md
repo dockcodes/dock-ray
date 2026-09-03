@@ -1,6 +1,6 @@
 # dock-ray
 
-Python client for [DockTHOR](https://dock.codes). Reports exceptions, messages
+Python client for [DockRay](https://dockray.io). Reports exceptions, messages
 and HTTP transactions from asyncio applications.
 
 ## Installation

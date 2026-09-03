@@ -9,11 +9,11 @@ from .transport import HttpTransport
 
 logger = logging.getLogger("dock_ray")
 
-SDK_VERSION = "1.4.1"
+SDK_VERSION = "1.4.2"
 
 
 class DockRayClient:
-    """Sends errors, messages and transactions to a DockTHOR project.
+    """Sends errors, messages and transactions to a DockRay project.
 
     Without a token and a private key the client stays inert — every call is a
     no-op. That way an application can wire it up unconditionally and leave the
@@ -125,4 +125,4 @@ def _log_failure(task: asyncio.Task) -> None:
     error = task.exception()
 
     if error is not None:
-        logger.warning("DockTHOR failed to report an event: %s", error)
+        logger.warning("DockRay failed to report an event: %s", error)

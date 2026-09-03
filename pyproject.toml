@@ -1,7 +1,7 @@
 [project]
 name = "dock-ray"
-version = "1.4.1"
-description = "Python client for DockTHOR error and performance monitoring"
+version = "1.4.2"
+description = "Python client for DockRay error and performance monitoring"
 authors = [{ name = "Jacek Sultan", email = "j.sultan@dock.codes" }]
 readme = "README.md"
 license = "MIT"
@@ -18,7 +18,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://dock.codes"
+Homepage = "https://dockray.io"
 Source = "https://github.com/dockcodes/dock-ray"
 Issues = "https://github.com/dockcodes/dock-ray/issues"
 

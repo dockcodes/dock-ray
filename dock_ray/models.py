@@ -31,7 +31,7 @@ class AuthData:
         parts = urlsplit(self.url)
 
         if not parts.netloc:
-            raise ValueError(f"{self.url!r} is not a valid DockTHOR server URL")
+            raise ValueError(f"{self.url!r} is not a valid DockRay server URL")
 
         origin = f"{parts.scheme or 'https'}://{parts.netloc}{parts.path.rstrip('/')}"
 
