@@ -2,14 +2,16 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 from typing import Optional
 
 from .models import DEFAULT_URL, AuthData, Event, Span
 from .transport import HttpTransport
+from .inventory import InventoryReporter
 
 logger = logging.getLogger("dock_ray")
 
-SDK_VERSION = "1.4.2"
+SDK_VERSION = "1.5.0"
 
 
 class DockRayClient:
@@ -24,12 +26,18 @@ class DockRayClient:
         self,
         token: str = "",
         private_key: str = "",
-        environment: str = "production",
+        environment: Optional[str] = None,
         url: str = DEFAULT_URL,
         timeout: float = 5.0,
         compress: bool = True,
+        inventory_enabled: Optional[bool] = None,
+        inventory_exclude_packages=None,
+        inventory_project_directory: Optional[str] = None,
+        inventory_state_directory: Optional[str] = None,
+        inventory_requirements_file: Optional[str] = None,
+        inventory_optional_groups=None,
     ) -> None:
-        self.environment = environment
+        self.environment = environment if environment is not None else os.getenv("RAY_ENVIRONMENT", "production")
         self.transport: Optional[HttpTransport] = None
         self._background: set[asyncio.Task] = set()
 
@@ -40,6 +48,24 @@ class DockRayClient:
                 timeout=timeout,
                 compress=compress,
             )
+
+        self.inventory = InventoryReporter(
+            enabled=(os.getenv("RAY_INVENTORY") == "true") if inventory_enabled is None else inventory_enabled,
+            token=token, private_key=private_key, url=url, environment=self.environment,
+            project_directory=inventory_project_directory or os.getenv("RAY_INVENTORY_PROJECT_DIR"),
+            state_directory=inventory_state_directory or os.getenv("RAY_INVENTORY_STATE_DIR"),
+            exclude_packages=inventory_exclude_packages if inventory_exclude_packages is not None else _csv("RAY_INVENTORY_EXCLUDE_PACKAGES"),
+            requirements_file=inventory_requirements_file if inventory_requirements_file is not None else os.getenv("RAY_INVENTORY_REQUIREMENTS_FILE"),
+            optional_groups=inventory_optional_groups if inventory_optional_groups is not None else _csv("RAY_INVENTORY_OPTIONAL_GROUPS"),
+        )
+        self.inventory.start()
+
+    def start_inventory(self) -> bool:
+        """Start once inside the application event loop; never per request."""
+        return self.inventory.start()
+
+    async def report_inventory(self, force: bool = False) -> dict:
+        return await self.inventory.report(force=force)
 
     @property
     def enabled(self) -> bool:
@@ -112,6 +138,7 @@ class DockRayClient:
             await asyncio.gather(*tuple(self._background), return_exceptions=True)
 
     async def close(self) -> None:
+        await self.inventory.stop()
         await self.flush()
 
         if self.transport is not None:
@@ -126,3 +153,7 @@ def _log_failure(task: asyncio.Task) -> None:
 
     if error is not None:
         logger.warning("DockRay failed to report an event: %s", error)
+
+
+def _csv(name):
+    return tuple(value.strip() for value in os.getenv(name, "").split(",") if value.strip())

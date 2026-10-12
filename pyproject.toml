@@ -1,13 +1,13 @@
 [project]
 name = "dock-ray"
-version = "1.4.2"
+version = "1.5.0"
 description = "Python client for DockRay error and performance monitoring"
 authors = [{ name = "Jacek Sultan", email = "j.sultan@dock.codes" }]
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.9"
 keywords = ["error reporting", "monitoring", "async", "asgi", "fastapi", "logging"]
-dependencies = ["httpx>=0.28.1"]
+dependencies = ["httpx>=0.28.1", "packaging>=23", "tomli>=2; python_version < '3.11'"]
 
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -16,6 +16,9 @@ classifiers = [
     "Topic :: System :: Monitoring",
     "Framework :: FastAPI",
 ]
+
+[project.scripts]
+dockray-inventory = "dock_ray.inventory_cli:main"
 
 [project.urls]
 Homepage = "https://dockray.io"

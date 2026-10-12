@@ -32,6 +32,8 @@ class DockRayFastAPIMiddleware:
         self.capture_transactions = capture_transactions
 
     async def __call__(self, scope, receive, send):
+        if scope["type"] == "lifespan":
+            self.client.start_inventory()
         if scope["type"] != "http" or not self.client.enabled:
             await self.app(scope, receive, send)
             return
